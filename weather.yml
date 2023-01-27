@@ -1,0 +1,61 @@
+---
+apiVersion: v1 
+kind: Pod
+metadata:
+  name: aks-poc-nagpur
+  labels:
+    purpose: weather-forecasting-nagpur
+
+spec:
+  containers:
+  - name: weatherforecast-demo-nagpur
+    image: weatherforcastingcontainerimages.azurecr.io/weatherforcast:version1  
+    resources:
+      requests:
+        cpu: 100m
+      limits:
+        cpu: 500m
+    args: ["--city", "Nagpur"]
+  restartPolicy: OnFailure
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: aks-poc-mumbai
+  labels:
+    purpose: weather-forecasting-mumbai
+
+spec:
+  containers:
+  - name: weatherforecast-demo-mumbai
+    image: weatherforcastingcontainerimages.azurecr.io/weatherforcast:version1
+    
+    resources:
+        requests:
+          cpu: "0"
+        limits:
+          cpu: "500m"
+    args: ["--city", "Mumbai"]
+  restartPolicy: OnFailure
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: aks-poc-pune
+  labels:
+    purpose: weather-forecasting-pune 
+
+spec:
+  containers:
+  - name: weatherforecast-demo-pune
+    image: weatherforcastingcontainerimages.azurecr.io/weatherforcast:version1
+    args: ["--city", "Pune"]
+    resources:
+      requests:
+        cpu: "0.5"
+      limits:
+        cpu: "1"
+    args: ["--city", "Pune"]
+  restartPolicy: OnFailure

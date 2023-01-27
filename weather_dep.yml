@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-deployment
+  labels:
+    app: weather
+spec:
+  selector:
+    matchLabels:
+      app:weather
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: weather
+    spec:
+      containers:
+      - name: weather
+        image: weatherforcastingcontainerimages.azurecr.io/weatherapi:version1
+        resources:
+          requests:
+            cpu: 100m
+          limits:
+            cpu: 500m
+        ports:
+        - containerPort: 5000

@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: weather-forecast-daily
+  namespace: weather-app
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: weather
+            image: weatherforcastingcontainerimages.azurecr.io/weatherforcast:version4
+            args: [--city, 'Mumbai']
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                cpu: 500m
+          restartPolicy: OnFailure         
+        
